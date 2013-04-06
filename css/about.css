@@ -1,8 +1,71 @@
+/* Adapted from Twitter Bootstrap: twitter.github.com/bootstrap */
+
 html, body {
   margin: 0;
   padding: 0;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Georgia, serif';
+}
+
 canvas {
   position: absolute;
+  z-index: -1;
+}
+
+.hero {
+  position: absolute;
+  /*margin: 20% 25% 20% 25%;*/
+  padding: 3%;
+  background-color: #000;
+  opacity: 0.8;
+  border-radius: 6px;
+}
+
+.hero h1 {
+  font-size: 36pt;
+  font-weight: 100;
+  letter-spacing: 1px;
+  color: #FFF;
+}
+
+.hero {
+  top: 10%;
+  left: 50%;
+  width: 560px;
+  margin-left: -280px;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+}
+
+.center {
+  text-align: center;
+}
+
+.decoration {
+  color: #FFF;
+  letter-spacing: 4px;
+}
+
+
+@media(max-width: 767px) {
+  .hero {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    left: 30px;
+    width: auto;
+    margin: 0;
+  }
+}
+
+
+@media(max-width: 480px) {
+  .hero {
+    top: 30px;
+    right: 30px;
+    left: 30px;
+  }
 }

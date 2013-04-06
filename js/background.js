@@ -12,14 +12,14 @@
 
     this.ctx = this.canvas.getContext( '2d' );
 
-    this.red   = 242;
-    this.green = 229;
-    this.blue  = 223;
+    this.red   = 255;
+    this.green = 255;
+    this.blue  = 255;
     this.alpha = 1.0;
 
-    this.particleRed   = 36;
-    this.particleGreen = 20;
-    this.particleBlue  = 38;
+    this.particleRed   = 115;
+    this.particleGreen = 72;
+    this.particleBlue  = 84;
 
     this.size = 1.5;
 
@@ -35,6 +35,8 @@
 
     this.zmin = Number.POSITIVE_INFINITY;
     this.zmax = Number.NEGATIVE_INFINITY;
+
+    this.resizing = false;
   };
 
   Background.prototype.create = function() {
@@ -142,11 +144,18 @@
 
 }) ( window, document );
 
+window.onresize = function( event ) {
+  if ( !background.resizing ) {
+    console.log('resize');
+    background.resizing = true;
+
+    background.resize();
+    background.draw();
+
+    background.resizing = false;
+  }
+};
+
 var background = new Background();
 background.create();
 background.draw();
-
-window.onresize = function( event ) {
-  background.resize();
-  background.draw();
-};
