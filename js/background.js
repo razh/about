@@ -21,7 +21,8 @@
     this.particleGreen = 72;
     this.particleBlue  = 84;
 
-    this.size = 1.5;
+    this.scale = 18;
+    this.size  = 1.5;
 
     this.points = [];
 
@@ -31,7 +32,11 @@
     this.c = 8 / 3;
 
     this.count = 10000;
-    this.dt = 0.01;
+    this.dt    = 0.01;
+
+    // Position (in percentages).
+    this.x = 0.45;
+    this.y = 0.5;
 
     this.zmin = Number.POSITIVE_INFINITY;
     this.zmax = Number.NEGATIVE_INFINITY;
@@ -48,7 +53,7 @@
         c = this.c;
 
     var count = this.count,
-        dt = this.dt;
+        dt    = this.dt;
 
     var x1 = x0,
         y1 = y0,
@@ -101,18 +106,19 @@
     this.ctx.fillRect( 0, 0, this.WIDTH, this.HEIGHT );
 
     var inverseDepth  = 1 / ( this.zmax - this.zmin );
-        scale         = 18,
+        scale         = this.scale,
         radius        = this.size / scale;
 
     this.ctx.save();
 
-    this.ctx.translate( 0.45 * this.WIDTH, 0.5 * this.HEIGHT );
+    this.ctx.translate( this.x * this.WIDTH,
+                        this.y * this.HEIGHT );
     this.ctx.scale( scale, scale );
 
-    var lx = -0.45 * this.WIDTH  / scale,
-        rx =  0.55 * this.WIDTH  / scale,
-        ly = -0.5  * this.HEIGHT / scale,
-        ry =  0.5  * this.HEIGHT / scale;
+    var lx = -this.x * this.WIDTH  / scale,
+        ly = -this.y * this.HEIGHT / scale,
+        rx = ( 1 - this.x ) * this.WIDTH  / scale,
+        ry = ( 1 - this.y ) * this.HEIGHT / scale;
 
     var particleRGB = 'rgba( ' + this.particleRed   +
                       ', '     + this.particleGreen +
@@ -127,6 +133,7 @@
       y = this.points[ i + 1 ];
       z = this.points[ i + 2 ];
 
+      // Calculate alpha based on square of relative distance from camera.
       relativeZ = ( z - this.zmin ) * inverseDepth;
       alpha = relativeZ * relativeZ;
 
@@ -163,5 +170,4 @@ background.create();
 
 var time = Date.now();
 background.draw();
-var delta = Date.now() - time;
-console.log(delta);
+console.log( Date.now() - time );
