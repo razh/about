@@ -35,8 +35,6 @@
 
     this.zmin = Number.POSITIVE_INFINITY;
     this.zmax = Number.NEGATIVE_INFINITY;
-
-    this.resizing = false;
   };
 
   Background.prototype.create = function() {
@@ -108,24 +106,37 @@
 
     this.ctx.save();
 
-    this.ctx.translate( 0.4 * this.WIDTH, 0.5 * this.HEIGHT );
+    this.ctx.translate( 0.45 * this.WIDTH, 0.5 * this.HEIGHT );
     this.ctx.scale( scale, scale );
 
-    var x, y, z;
-    var alpha;
-    var relativeZ;
-    for ( var i = 0, il = Math.floor( this.points.length / 3 ); i < il; i++ ) {
-      x = this.points[ 3 * i ];
-      y = this.points[ 3 * i + 1 ];
-      z = this.points[ 3 * i + 2 ];
+    var lx = -0.45 * this.WIDTH  / scale,
+        rx =  0.55 * this.WIDTH  / scale,
+        ly = -0.5  * this.HEIGHT / scale,
+        ry =  0.5  * this.HEIGHT / scale;
+
+    var particleRGB = 'rgba( ' + this.particleRed   +
+                      ', '     + this.particleGreen +
+                      ', '     + this.particleBlue  +
+                      ', ';
+
+    var x, y, z,
+        alpha,
+        relativeZ;
+    for ( var i = 0, il = this.points.length; i < il; i += 3 ) {
+      x = this.points[ i ];
+      y = this.points[ i + 1 ];
+      z = this.points[ i + 2 ];
 
       relativeZ = ( z - this.zmin ) * inverseDepth;
-      alpha = Math.max( 0.0, Math.pow( relativeZ, 2 ) );
+      alpha = relativeZ * relativeZ;
 
-      this.ctx.fillStyle = 'rgba( ' + this.particleRed   +
-                           ', '     + this.particleGreen +
-                           ', '     + this.particleBlue  +
-                           ', '     + alpha + ' )';
+      // Clip unseen points.
+      if ( lx > x || x > rx ||
+           ly > y || y > ry ) {
+        continue;
+      }
+
+      this.ctx.fillStyle = particleRGB + alpha + ' )';
       this.ctx.fillRect( x, y, radius, radius );
     }
 
@@ -133,8 +144,6 @@
   };
 
   Background.prototype.resize = function( event ) {
-    this.ctx.clearRect( 0, 0, this.WIDTH, this.HEIGHT );
-
     this.WIDTH  = window.innerWidth;
     this.HEIGHT = window.innerHeight;
 
@@ -145,17 +154,14 @@
 }) ( window, document );
 
 window.onresize = function( event ) {
-  if ( !background.resizing ) {
-    console.log('resize');
-    background.resizing = true;
-
-    background.resize();
-    background.draw();
-
-    background.resizing = false;
-  }
+  background.resize();
+  background.draw();
 };
 
 var background = new Background();
 background.create();
+
+var time = Date.now();
 background.draw();
+var delta = Date.now() - time;
+console.log(delta);

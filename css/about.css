@@ -16,7 +16,6 @@ canvas {
 
 .hero {
   position: absolute;
-  /*margin: 20% 25% 20% 25%;*/
   padding: 3%;
   background-color: #000;
   opacity: 0.8;
@@ -33,8 +32,8 @@ canvas {
 .hero {
   top: 10%;
   left: 50%;
-  width: 560px;
-  margin-left: -280px;
+  width: 600px;
+  margin-left: -300px;
   -webkit-border-radius: 6px;
      -moz-border-radius: 6px;
           border-radius: 6px;
@@ -53,9 +52,9 @@ canvas {
 @media(max-width: 767px) {
   .hero {
     position: fixed;
-    top: 30px;
-    right: 30px;
-    left: 30px;
+    top: 60px;
+    right: 60px;
+    left: 60px;
     width: auto;
     margin: 0;
   }
