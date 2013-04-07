@@ -128,10 +128,12 @@
 
     this.ctx.save();
 
+    // Tranform context.
     this.ctx.translate( this.x * this.WIDTH,
                         this.y * this.HEIGHT );
     this.ctx.scale( scale, scale );
 
+    // Calculate viewport boundaries.
     var lx = -this.x * this.WIDTH  / scale,
         ly = -this.y * this.HEIGHT / scale,
         rx = ( 1 - this.x ) * this.WIDTH  / scale,
@@ -173,17 +175,19 @@
     this.canvas.height = this.HEIGHT;
   };
 
+  window.onresize = function( event ) {
+    background.resize();
+    background.draw();
+  };
+
 }) ( window, document );
 
-window.onresize = function( event ) {
-  background.resize();
+(function() {
+  var time = Date.now();
+
+  var background = new Background();
+  background.create();
   background.draw();
-};
 
-var time = Date.now();
-
-var background = new Background();
-background.create();
-background.draw();
-
-console.log( Date.now() - time );
+  console.log( Date.now() - time );
+}) ();
