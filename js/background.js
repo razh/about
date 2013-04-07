@@ -181,8 +181,9 @@ window.onresize = function( event ) {
 };
 
 var time = Date.now();
+
 var background = new Background();
 background.create();
-
 background.draw();
+
 console.log( Date.now() - time );
