@@ -3,15 +3,24 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+  font-family: Georgia, Cambria, serif;
   font-size: 16px;
-  font-weight: 400;
+  font-weight: normal;
   line-height: 20px;
+
+  overflow: auto;
+  overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: Georgia, serif;
-  margin-bottom: 0;
+  margin-bottom: 10px;
+}
+
+a {
+  color: inherit;
+  font-family: inherit;
+  text-decoration: none;
 }
 
 p {
@@ -28,7 +37,7 @@ canvas {
   top: 10%;
   left: 50%;
   width: 550px;
-  margin-left: -300px;
+  margin-left: -275px;
 
   -webkit-border-radius: 6px;
      -moz-border-radius: 6px;
@@ -60,17 +69,17 @@ canvas {
   color: #FFF;
   background-color: #000;
   opacity: 0.9;
-  padding: 3%;
+  padding: 2%;
 }
 
 .hero .hero-middle h2 {
-  font-size: 16pt;
+  font-size: 10pt;
   letter-spacing: 2px;
   text-transform: uppercase;
 }
 
 .hero .hero-bottom {
-  background-color: #EEE;
+  background-color: #FFF;
   opacity: 0.8;
   padding: 3%;
 
@@ -89,7 +98,6 @@ canvas {
 
 @media(max-width: 767px) {
   .hero {
-    position: fixed;
     top: 60px;
     right: 60px;
     left: 60px;
@@ -97,7 +105,6 @@ canvas {
     margin: 0;
   }
 }
-
 
 @media(max-width: 480px) {
   .hero {
