@@ -37,9 +37,6 @@
     // Position (in percentages).
     this.x = 0.45;
     this.y = 0.5;
-
-    this.zmin = Number.POSITIVE_INFINITY;
-    this.zmax = Number.NEGATIVE_INFINITY;
   };
 
   Background.prototype.create = function() {
@@ -60,10 +57,12 @@
         z1 = z0;
 
     // Bounds.
-    var zmin = this.zmin,
-        zmax = this.zmax;
+    var zmin = Number.POSITIVE_INFINITY,
+        zmax = Number.NEGATIVE_INFINITY;
 
-    for ( var i = 0; i < count; i++ ) {
+    var points = [];
+    var i, il;
+    for ( i = 0; i < count; i++ ) {
       /**
         We step through the system of differential equations defined by:
 
@@ -84,17 +83,36 @@
       zmin = Math.min( zmin, z1 );
       zmax = Math.max( zmax, z1 );
 
-      this.points.push( x1 );
-      this.points.push( y1 );
-      this.points.push( z1 );
+      // Float32Array creation was found to be more expensive than object creation.
+      points.push({
+        x: x1,
+        y: y1,
+        z: z1
+      });
 
       x0 = x1;
       y0 = y1;
       z0 = z1;
     }
 
-    this.zmin = zmin;
-    this.zmax = zmax;
+    // Set third coordinate to alpha value (rounded to nearest hundredths).
+    var inverseDepth  = 1 / ( zmax - zmin ),
+        relativeZ;
+
+    for ( i = 0, il = points.length; i < il; i++ ) {
+      relativeZ = ( points[i].z - zmin ) * inverseDepth;
+      points[i].z = Math.round( relativeZ * relativeZ * 1e3 ) * 1e-3;
+    }
+
+    points.sort(function( a, b ) {
+      return a.z - b.z;
+    });
+
+    for ( i = 0, il = points.length; i < il; i++ ) {
+      this.points.push( points[i].x );
+      this.points.push( points[i].y );
+      this.points.push( points[i].z );
+    }
   };
 
   Background.prototype.draw = function() {
@@ -105,9 +123,8 @@
 
     this.ctx.fillRect( 0, 0, this.WIDTH, this.HEIGHT );
 
-    var inverseDepth  = 1 / ( this.zmax - this.zmin );
-        scale         = this.scale,
-        radius        = this.size / scale;
+    var scale  = this.scale,
+        radius = this.size / scale;
 
     this.ctx.save();
 
@@ -125,17 +142,12 @@
                       ', '     + this.particleBlue  +
                       ', ';
 
-    var x, y, z,
-        alpha,
-        relativeZ;
+    var x, y, alpha,
+        currentAlpha = 0.0;
     for ( var i = 0, il = this.points.length; i < il; i += 3 ) {
       x = this.points[ i ];
       y = this.points[ i + 1 ];
-      z = this.points[ i + 2 ];
-
-      // Calculate alpha based on square of relative distance from camera.
-      relativeZ = ( z - this.zmin ) * inverseDepth;
-      alpha = relativeZ * relativeZ;
+      alpha = this.points[ i + 2 ];
 
       // Clip unseen points.
       if ( lx > x || x > rx ||
@@ -143,7 +155,10 @@
         continue;
       }
 
-      this.ctx.fillStyle = particleRGB + alpha + ' )';
+      if ( alpha !== currentAlpha ) {
+        this.ctx.fillStyle = particleRGB + alpha + ' )';
+      }
+
       this.ctx.fillRect( x, y, radius, radius );
     }
 
@@ -165,9 +180,9 @@ window.onresize = function( event ) {
   background.draw();
 };
 
+var time = Date.now();
 var background = new Background();
 background.create();
 
-var time = Date.now();
 background.draw();
 console.log( Date.now() - time );
