@@ -175,14 +175,14 @@
     this.canvas.height = this.HEIGHT;
   };
 
+}) ( window, document );
+
+(function( window ) {
   window.onresize = function( event ) {
     background.resize();
     background.draw();
   };
 
-}) ( window, document );
-
-(function() {
   var time = Date.now();
 
   var background = new Background();
@@ -190,4 +190,4 @@
   background.draw();
 
   console.log( Date.now() - time );
-}) ();
+}) ( window );
