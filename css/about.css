@@ -1,21 +1,21 @@
 /* Adapted from Twitter Bootstrap: twitter.github.com/bootstrap */
 
-html, body {
+body {
   margin: 0;
   padding: 0;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Georgia, serif';
+  font-family: Georgia, serif;
   margin-bottom: 0;
 }
 
 p {
-  color: #DDD;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  font-weight: 300;
-  line-height: 20px;
+  color: #222;
 }
 
 canvas {
@@ -27,11 +27,8 @@ canvas {
   position: absolute;
   top: 10%;
   left: 50%;
-  width: 600px;
+  width: 550px;
   margin-left: -300px;
-  padding: 3%;
-  background-color: #000;
-  opacity: 0.75;
 
   -webkit-border-radius: 6px;
      -moz-border-radius: 6px;
@@ -42,13 +39,43 @@ canvas {
           box-shadow: 0 0 9px 3px rgba( 0, 0, 0, 0.25 );
 }
 
-.hero .hero-top {}
-
 .hero h1 {
   font-size: 36pt;
   font-weight: 100;
   letter-spacing: 1px;
   color: #FFF;
+  line-height: 40pt;
+}
+
+.hero .hero-top {
+  background-color: #000;
+  opacity: 0.8;
+  padding: 3%;
+
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+.hero .hero-middle {
+  color: #FFF;
+  background-color: #000;
+  opacity: 0.9;
+  padding: 3%;
+}
+
+.hero .hero-middle h2 {
+  font-size: 16pt;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.hero .hero-bottom {
+  background-color: #EEE;
+  opacity: 0.8;
+  padding: 3%;
+
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
 }
 
 .center {
@@ -59,7 +86,6 @@ canvas {
   color: #FFF;
   letter-spacing: 4px;
 }
-
 
 @media(max-width: 767px) {
   .hero {
