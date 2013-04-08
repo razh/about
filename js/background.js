@@ -175,7 +175,69 @@
     this.canvas.height = this.HEIGHT;
   };
 
+
 }) ( window, document );
+
+
+// Function taken verbatim from java.awt.Color.
+function convertHSBtoRGB( hue, saturation, brightness ) {
+  var r = 0,
+      g = 0,
+      b = 0;
+
+  if ( saturation === 0 ) {
+    r = g = b = brightness * 255 + 0.5;
+  } else {
+    var h = ( hue - Math.floor( hue ) ) * 6.0,
+        f = h - Math.floor( h ),
+        p = brightness * ( 1.0 - saturation ),
+        q = brightness * ( 1.0 - saturation * f ),
+        t = brightness * ( 1.0 - ( saturation * ( 1.0 - f ) ) );
+    switch ( h ) {
+
+      case 0:
+        r = brightness * 255 + 0.5;
+        g = t * 255 + 0.5;
+        b = p * 255 + 0.5;
+        break;
+
+      case 1:
+        r = q * 255 + 0.5;
+        g = brightness * 255 + 0.5;
+        b = p * 255 + 0.5;
+        break;
+
+      case 2:
+        r = p * 255 + 0.5;
+        g = brightness * 255 + 0.5;
+        b = t * 255 + 0.5;
+        break;
+
+      case 3:
+        r = p * 255 + 0.5;
+        g = q * 255 + 0.5;
+        b = brightness * 255 + 0.5;
+        break;
+
+      case 4:
+        r = t * 255 + 0.5;
+        g = p * 255 + 0.5;
+        b = brightness * 255 + 0.5;
+        break;
+
+      case 5:
+        r = brightness * 255 + 0.5;
+        g = p * 255 + 0.5;
+        b = q * 255 + 0.5;
+        break;
+
+    }
+  }
+
+  return ( Math.round(r) << 16 ) |
+         ( Math.round(g) <<  8 ) |
+         ( Math.round(b) <<  0 );
+}
 
 (function( window ) {
   window.onresize = function( event ) {
