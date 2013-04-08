@@ -175,65 +175,64 @@
     this.canvas.height = this.HEIGHT;
   };
 
+  function convertHSVtoRGB( hue, saturation, value ) {
+    var r = 0,
+        g = 0,
+        b = 0;
 
-}) ( window, document );
+    var chroma = value * saturation;
 
-function convertHSVtoRGB( hue, saturation, value ) {
-  var r = 0,
-      g = 0,
-      b = 0;
+    var h = hue / 60.0,
+        x = chroma * ( 1 - Math.abs( h % 2 - 1 ) );
 
-  var chroma = value * saturation;
+    switch ( Math.floor(h) ) {
+      case 0:
+        r = chroma;
+        g = x;
+        b = 0;
+        break;
 
-  var h = hue / 60.0,
-      x = chroma * ( 1 - Math.abs( h % 2 - 1 ) );
+      case 1:
+        r = x;
+        g = chroma;
+        b = 0;
+        break;
 
-  switch ( Math.floor(h) ) {
-    case 0:
-      r = chroma;
-      g = x;
-      b = 0;
-      break;
+      case 2:
+        r = 0;
+        g = chroma;
+        b = x;
+        break;
 
-    case 1:
-      r = x;
-      g = chroma;
-      b = 0;
-      break;
+      case 3:
+        r = 0;
+        g = x;
+        b = chroma;
+        break;
 
-    case 2:
-      r = 0;
-      g = chroma;
-      b = x;
-      break;
+      case 4:
+        r = x;
+        g = 0;
+        b = chroma;
+        break;
 
-    case 3:
-      r = 0;
-      g = x;
-      b = chroma;
-      break;
+      case 5:
+        r = chroma;
+        g = 0;
+        b = x;
+        break;
+    }
 
-    case 4:
-      r = x;
-      g = 0;
-      b = chroma;
-      break;
+    var m = value - chroma;
 
-    case 5:
-      r = chroma;
-      g = 0;
-      b = x;
-      break;
+    return {
+      r: Math.round( ( r + m ) * 255 ),
+      g: Math.round( ( g + m ) * 255 ),
+      b: Math.round( ( b + m ) * 255 )
+    };
   }
 
-  var m = value - chroma;
-
-  return {
-    r: Math.round( ( r + m ) * 255 ),
-    g: Math.round( ( g + m ) * 255 ),
-    b: Math.round( ( b + m ) * 255 )
-  };
-}
+}) ( window, document );
 
 (function( window ) {
   window.onresize = function( event ) {
