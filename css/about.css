@@ -18,7 +18,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 img {
-  vertical-align: text-top;
+  vertical-align: top;
 }
 
 a {
@@ -58,12 +58,20 @@ ul {
           border-radius: 6px;
 }
 
-.hero {
+.description-text {
+  display: inline-block;
+}
+
+.container {
   position: absolute;
   top: 10%;
   left: 50%;
   width: 550px;
   margin-left: -275px;
+}
+
+.hero {
+  margin-bottom: 100px;
 
   -webkit-box-shadow: 0 0 9px 3px rgba( 0, 0, 0, 0.25 );
      -moz-box-shadow: 0 0 9px 3px rgba( 0, 0, 0, 0.25 );
@@ -121,7 +129,6 @@ ul {
 
 .row {
   display: inline;
-  margin-top: 3%;
 
   background-color: #FFF;
   padding: 2%;
@@ -133,8 +140,13 @@ ul {
   margin-left: 10px;
 }
 
+.row h2 {
+  font-size: 16pt;
+  margin: 6px 10px 6px 10px;
+}
+
 @media(max-width: 767px) {
-  .hero {
+  .container {
     top: 60px;
     right: 60px;
     left: 60px;
@@ -144,7 +156,7 @@ ul {
 }
 
 @media(max-width: 480px) {
-  .hero {
+  .container {
     top: 30px;
     right: 30px;
     left: 30px;
