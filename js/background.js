@@ -178,65 +178,61 @@
 
 }) ( window, document );
 
-
-// Function taken verbatim from java.awt.Color.
-function convertHSBtoRGB( hue, saturation, brightness ) {
+function convertHSVtoRGB( hue, saturation, value ) {
   var r = 0,
       g = 0,
       b = 0;
 
-  if ( saturation === 0 ) {
-    r = g = b = brightness * 255 + 0.5;
-  } else {
-    var h = ( hue - Math.floor( hue ) ) * 6.0,
-        f = h - Math.floor( h ),
-        p = brightness * ( 1.0 - saturation ),
-        q = brightness * ( 1.0 - saturation * f ),
-        t = brightness * ( 1.0 - ( saturation * ( 1.0 - f ) ) );
-    switch ( h ) {
+  var chroma = value * saturation;
 
-      case 0:
-        r = brightness * 255 + 0.5;
-        g = t * 255 + 0.5;
-        b = p * 255 + 0.5;
-        break;
+  var h = hue / 60.0,
+      x = chroma * ( 1 - Math.abs( h % 2 - 1 ) );
 
-      case 1:
-        r = q * 255 + 0.5;
-        g = brightness * 255 + 0.5;
-        b = p * 255 + 0.5;
-        break;
+  switch ( Math.floor(h) ) {
+    case 0:
+      r = chroma;
+      g = x;
+      b = 0;
+      break;
 
-      case 2:
-        r = p * 255 + 0.5;
-        g = brightness * 255 + 0.5;
-        b = t * 255 + 0.5;
-        break;
+    case 1:
+      r = x;
+      g = chroma;
+      b = 0;
+      break;
 
-      case 3:
-        r = p * 255 + 0.5;
-        g = q * 255 + 0.5;
-        b = brightness * 255 + 0.5;
-        break;
+    case 2:
+      r = 0;
+      g = chroma;
+      b = x;
+      break;
 
-      case 4:
-        r = t * 255 + 0.5;
-        g = p * 255 + 0.5;
-        b = brightness * 255 + 0.5;
-        break;
+    case 3:
+      r = 0;
+      g = x;
+      b = chroma;
+      break;
 
-      case 5:
-        r = brightness * 255 + 0.5;
-        g = p * 255 + 0.5;
-        b = q * 255 + 0.5;
-        break;
+    case 4:
+      r = x;
+      g = 0;
+      b = chroma;
+      break;
 
-    }
+    case 5:
+      r = chroma;
+      g = 0;
+      b = x;
+      break;
   }
 
-  return ( Math.round(r) << 16 ) |
-         ( Math.round(g) <<  8 ) |
-         ( Math.round(b) <<  0 );
+  var m = value - chroma;
+
+  return {
+    r: Math.round( ( r + m ) * 255 ),
+    g: Math.round( ( g + m ) * 255 ),
+    b: Math.round( ( b + m ) * 255 )
+  };
 }
 
 (function( window ) {
