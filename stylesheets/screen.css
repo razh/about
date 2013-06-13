@@ -67,22 +67,21 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
-/* line 9, ../sass/screen.scss */
+/* line 11, ../sass/screen.scss */
 html,
 body {
   width: 100%;
   height: 100%;
 }
 
-/* line 14, ../sass/screen.scss */
+/* line 16, ../sass/screen.scss */
 body {
   display: table;
   font-family: "ff-tisa-web-pro", Georgia, serif;
-  background: #E25067;
-  color: rgba(0, 0, 0, 0.5);
+  background: #F25967;
 }
 
-/* line 22, ../sass/screen.scss */
+/* line 23, ../sass/screen.scss */
 h1 {
   display: inline-block;
   font-family: "brandon-grotesque";
@@ -91,14 +90,13 @@ h1 {
   text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3);
 }
 
-/* line 31, ../sass/screen.scss */
+/* line 32, ../sass/screen.scss */
 .container {
   display: table-cell;
   text-align: center;
   vertical-align: middle;
 }
-
 /* line 38, ../sass/screen.scss */
-.navbar {
-  display: block;
+.container .links {
+  padding: 20px;
 }
