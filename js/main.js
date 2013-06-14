@@ -12,7 +12,12 @@
 
   Circle.prototype.update = function( dt ) {
     this.velocityY += dt * 100;
-    this.y = Math.min( HEIGHT - this.radius, this.y + this.velocityY * dt );
+    this.y += this.velocityY * dt;
+
+    if ( this.y > HEIGHT - this.radius ) {
+      this.y = HEIGHT - this.radius;
+      this.velocityY = -this.velocityY;
+    }
   };
 
   Circle.prototype.draw = function( ctx ) {
@@ -22,6 +27,31 @@
 
     ctx.fillStyle = this.color;
     ctx.fill();
+  };
+
+  Circle.prototype.collides = function( circle ) {
+    if ( this === circle ) {
+      return;
+    }
+
+    var radiusSquared = this.radius + circle.radius;
+    radiusSquared *= radiusSquared;
+
+    var dx = this.x - circle.x;
+    var dy = this.y - circle.y;
+
+    var distanceSquared = dx * dx + dy * dy;
+    if ( distanceSquared < radiusSquared) {
+      // Super simple elastic collision.
+      var vx = circle.velocityX;
+      var vy = circle.velocityY;
+
+      circle.velocityX = this.velocityX;
+      circle.velocityY = this.velocityY;
+
+      this.velocityX = vx;
+      this.velocityY = vy;
+    }
   };
 
   var canvas = document.getElementById( 'canvas' );
@@ -37,7 +67,7 @@
   var currTime;
 
   var circles = [];
-  var circleCount = 10;
+  var circleCount = 15;
 
 
   function update() {
@@ -45,8 +75,12 @@
     var dt = ( currTime - prevTime ) * 1e-3;
     prevTime = currTime;
 
+    var j;
     for ( var i = 0; i < circleCount; i++ ) {
       circles[i].update( dt );
+      for ( j = i; j < circleCount; j++ ) {
+        circles[i].collides( circles[j] );
+      }
     }
   }
 
@@ -73,7 +107,7 @@
     for ( var i = 0; i < circleCount; i++ ) {
       radius = Math.random() * 10 + 10;
       x = Math.min( Math.max( WIDTH * Math.random(), radius ), WIDTH - radius );
-      y = HEIGHT * Math.random();
+      y = HEIGHT * Math.random() - 2 * radius;
 
       circle = new Circle( x, y, radius );
       circles.push( circle );
