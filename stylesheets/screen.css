@@ -100,3 +100,8 @@ h1 {
 .container .links {
   padding: 20px;
 }
+
+/* line 44, ../sass/screen.scss */
+canvas {
+  display: block;
+}
