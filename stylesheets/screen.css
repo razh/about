@@ -101,7 +101,7 @@ h1 {
   padding: 20px;
 }
 
-/* line 44, ../sass/screen.scss */
+/* line 43, ../sass/screen.scss */
 canvas {
-  display: block;
+  float: left;
 }
