@@ -7,6 +7,22 @@
 
 $padding: 20px;
 
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} { @content; }
+  @-moz-keyframes #{$name} { @content; }
+  @-ms-keyframes #{$name} { @content; }
+  @keyframes #{$name} { @content; }
+}
+
+@mixin animation($animation) {
+  -webkit-animation: #{$animation};
+   -khtml-animation: #{$animation};
+     -moz-animation: #{$animation};
+      -ms-animation: #{$animation};
+       -o-animation: #{$animation};
+          animation: #{$animation};
+}
+
 html,
 body {
   width: 100%;
@@ -17,7 +33,7 @@ body {
   display: table;
   font-family: "ff-tisa-web-pro", Georgia, serif;
 
-  background: #F25967;
+  background: #ddd;
 }
 
 h1 {
@@ -25,8 +41,7 @@ h1 {
 
   font-family: "brandon-grotesque";
   font-size: 72pt;
-  color: #eee;
-  text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3);
+  color: black;
 }
 
 .container {
@@ -41,5 +56,10 @@ h1 {
 }
 
 canvas {
-  float: left;
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  z-index: -1;
 }

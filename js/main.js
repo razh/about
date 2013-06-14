@@ -4,20 +4,31 @@
     this.y = y || 0;
 
     this.radius = radius || 1;
-    this.color = color || 'white';
+    this.color = color || 'black';
 
-    this.velocityX = 0;
-    this.velocityY = 0;
+    this.radialVelocity = -( Math.random() + 0.25 ) * 2 * Math.PI / 180;
+    if ( Math.random() < 0.5 ) {
+      this.radialVelocity = -this.radialVelocity;
+    }
   }
 
   Circle.prototype.update = function( dt ) {
-    this.velocityY += dt * 100;
-    this.y += this.velocityY * dt;
+    var halfWidth = 0.5 * WIDTH,
+        halfHeight = 0.5 * HEIGHT;
 
-    if ( this.y > HEIGHT - this.radius ) {
-      this.y = HEIGHT - this.radius;
-      this.velocityY = -this.velocityY;
-    }
+    // Transform origin to center.
+    var x = this.x - halfWidth,
+        y = this.y - halfHeight;
+
+    // Rotate.
+    var cos = Math.cos( this.radialVelocity ),
+        sin = Math.sin( this.radialVelocity );
+
+    var rx = cos * x - sin * y,
+        ry = sin * x + cos * y;
+
+    this.x = rx + halfWidth;
+    this.y = ry + halfHeight;
   };
 
   Circle.prototype.draw = function( ctx ) {
@@ -29,39 +40,19 @@
     ctx.fill();
   };
 
-  Circle.prototype.collides = function( circle ) {
-    if ( this === circle ) {
-      return;
-    }
-
-    var radiusSquared = this.radius + circle.radius;
-    radiusSquared *= radiusSquared;
-
-    var dx = this.x - circle.x;
-    var dy = this.y - circle.y;
-
-    var distanceSquared = dx * dx + dy * dy;
-    if ( distanceSquared < radiusSquared) {
-      // Super simple elastic collision.
-      var vx = circle.velocityX;
-      var vy = circle.velocityY;
-
-      circle.velocityX = this.velocityX;
-      circle.velocityY = this.velocityY;
-
-      this.velocityX = vx;
-      this.velocityY = vy;
-    }
-  };
-
   var canvas = document.getElementById( 'canvas' );
   var context = canvas.getContext( '2d' );
 
-  var WIDTH = 250;
-  var HEIGHT = 250;
+  var WIDTH = Math.max( 480, Math.min( window.innerWidth, window.innerHeight ) );
+  var HEIGHT = WIDTH;
 
   canvas.width = WIDTH;
   canvas.height = HEIGHT;
+
+  canvas.style.marginTop = -0.5 * HEIGHT + 'px';
+  canvas.style.marginLeft = -0.5 * WIDTH + 'px';
+
+  canvas.style.background = 'rgba(0, 0, 0, 0.2)';
 
   var prevTime = Date.now();
   var currTime;
@@ -84,14 +75,12 @@
     var j;
     for ( var i = 0; i < circleCount; i++ ) {
       circles[i].update( dt );
-      for ( j = i; j < circleCount; j++ ) {
-        circles[i].collides( circles[j] );
-      }
     }
   }
 
   function draw() {
-    context.clearRect( 0, 0, WIDTH, HEIGHT );
+    context.fillStyle = 'rgba(221, 221, 221, 1.0)';
+    context.fillRect( 0, 0, WIDTH, HEIGHT );
     for ( var i = 0; i < circleCount; i++ ) {
       circles[i].draw( context );
     }
@@ -108,11 +97,15 @@
       return;
     }
 
+    var widthSquared = 0.5 * WIDTH;
+    widthSquared *= widthSquared;
+
     var circle;
     var x, y, radius;
     for ( var i = 0; i < circleCount; i++ ) {
-      radius = Math.random() * 10 + 10;
-      x = Math.min( Math.max( WIDTH * Math.random(), radius ), WIDTH - radius );
+      radius = Math.random() * 2 + 1;
+
+      x = Math.min( Math.max( WIDTH * Math.random(), 2 * radius ), WIDTH - 2 * radius );
       y = HEIGHT * Math.random() - 2 * radius;
 
       circle = new Circle( x, y, radius );
@@ -121,6 +114,17 @@
 
     requestAnimationFrame( loop );
   }
+
+  window.addEventListener( 'resize', function() {
+    WIDTH = Math.max( 480, Math.min( window.innerWidth, window.innerHeight ) );
+    HEIGHT = WIDTH;
+
+    canvas.width = WIDTH;
+    canvas.height = HEIGHT;
+
+    canvas.style.marginTop = -0.5 * HEIGHT + 'px';
+    canvas.style.marginLeft = -0.5 * WIDTH + 'px';
+  });
 
   init();
 }) ();
