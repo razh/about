@@ -72,8 +72,14 @@
 
   function update() {
     currTime = Date.now();
-    var dt = ( currTime - prevTime ) * 1e-3;
+    var dt = currTime - prevTime;
     prevTime = currTime;
+
+    if ( dt > 1e2 ) {
+      dt = 1e2;
+    }
+
+    dt *= 1e-3;
 
     var j;
     for ( var i = 0; i < circleCount; i++ ) {
