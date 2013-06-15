@@ -6,15 +6,21 @@
     this.radius = radius || 1;
     this.color = color || 'black';
 
-    this.radialVelocity = -( Math.random() + 0.25 ) * 2 * Math.PI / 180;
+    this.radialVelocity = ( 0.5 * Math.random() + 0.15 ) * 2 * Math.PI / 180;
     if ( Math.random() < 0.5 ) {
       this.radialVelocity = -this.radialVelocity;
     }
+
+    this.velocityX = 400;
+    this.velocityY = 400;
   }
 
   Circle.prototype.update = function( dt ) {
     var halfWidth = 0.5 * WIDTH,
         halfHeight = 0.5 * HEIGHT;
+
+    this.x += this.velocityX * dt;
+    this.y += this.velocityY * dt;
 
     // Transform origin to center.
     var x = this.x - halfWidth,
@@ -29,6 +35,18 @@
 
     this.x = rx + halfWidth;
     this.y = ry + halfHeight;
+
+    if ( this.x < 0 ) {
+      this.x = WIDTH;
+    } else if ( this.x > WIDTH ) {
+      this.x = 0;
+    }
+
+    if ( this.y < 0 ) {
+      this.y = HEIGHT;
+    } else if ( this.y > HEIGHT ) {
+      this.y = 0;
+    }
   };
 
   Circle.prototype.draw = function( ctx ) {
@@ -52,14 +70,13 @@
   canvas.style.marginTop = -0.5 * HEIGHT + 'px';
   canvas.style.marginLeft = -0.5 * WIDTH + 'px';
 
-  canvas.style.background = 'rgba(0, 0, 0, 0.2)';
-
   var prevTime = Date.now();
   var currTime;
 
   var circles = [];
   var circleCount = 15;
 
+  var backgroundColor = '#ddd';
 
   function update() {
     currTime = Date.now();
@@ -79,7 +96,7 @@
   }
 
   function draw() {
-    context.fillStyle = 'rgba(221, 221, 221, 1.0)';
+    context.fillStyle = backgroundColor;
     context.fillRect( 0, 0, WIDTH, HEIGHT );
     for ( var i = 0; i < circleCount; i++ ) {
       circles[i].draw( context );
