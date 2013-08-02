@@ -1,0 +1,3 @@
+[submodule "jquery-rain.js"]
+	path = jquery-rain.js
+	url = https://github.com/razh/jquery-rain.js.git
