@@ -1,0 +1,14 @@
+{
+  "name": "about",
+  "version": "0.0.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "git://github.com/components/jquery.git#~2.0.3"
+  }
+}
