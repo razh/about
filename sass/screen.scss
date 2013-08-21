@@ -8,12 +8,7 @@
 // For radial gradients.
 @import "compass/css3/images";
 @import "compass/css3/transition";
-
-$radius: 4px;
-$padding: 20px;
-$half-padding: 0.5 * $padding;
-
-$dark-gray: #222;
+@import "compass/css3/transform";
 
 @mixin keyframes($name) {
   @-webkit-keyframes #{$name} { @content; }
@@ -42,90 +37,56 @@ body {
 }
 
 body {
-  font-family: "proxima-nova", Georgia, serif;
-  font-weight: 700;
-  -webkit-font-smoothing: antialiased;
+  // background-color: #358;
+  // @include background(linear-gradient(#469, #8ad), linear-gradient(#fff, red));
 
-  @include background(radial-gradient(#555, $dark-gray));
+  @include background(
+    linear-gradient(
+      rgba(64, 112, 160, 1.0),
+      rgba(144, 176, 224, 1.0)
+    )
+  );
+  // @include background(linear-gradient(rgba(255, 0, 0, 0.75), rgba(0, 125, 0, 0.75)), linear-gradient(90deg, rgba(0, 0, 255, 0.25), rgba(100, 200, 0, 0.25)))
 }
 
-.container {
+.skyline {
+  @include perspective-origin(512px);
+  // @include rotate3d(0, 0, 1, 0deg);
+  @include transform-style(preserve-3d);
+  width: 1000px;
+  height: 500px;
+
+}
+
+.building {
   position: absolute;
-  width: 222px;
-  height: 360px;
+}
 
-  top: 50%;
-  left: 50%;
+.building-left {
+  left: 2em;
+  bottom: 0;
 
-  margin-top: -180px;
-  margin-left: -111px;
+  width: 100px;
+  height: 200px;
+  background-color: #fff;
+  @include background(
+    linear-gradient(
+      rgba(255, 255, 255, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 0, 0, 0.5),
+      rgba(0, 255, 0, 0.5),
+      rgba(0, 0, 255, 0.5)
+    )
+  );
 
-  text-align: center;
-
-  border-radius: $radius;
-  box-shadow: 0 0 $half-padding $dark-gray;
-
-  color: rgba(255, 255, 255, 0.75);
-  background-color: rgba(230, 66, 66, 0.5);
-
-  @include transition(all 0.4s ease-in-out);
+  @include transition(all 0.5s ease-in-out);
 
   &:hover {
-    background-color: rgba(230, 66, 66, 0.9);
-    color: white;
+    opacity: 0;
   }
 
-  .text {
-    padding-top: 2 * $padding;
-    padding-right: $padding;
-    padding-left: $padding;
-
-    h1 {
-      font-weight: 900;
-      font-size: 12pt;
-      letter-spacing: 3px;
-      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
-    }
-
-    .divider {
-      padding-top: $half-padding;
-      letter-spacing: 4px;
-    }
-
-    p {
-      font-weight: 400;
-      line-height: 1.25;
-      margin-top: $padding;
-    }
-  }
-
-  .links {
-    width: 100%;
-
-    margin-top: $padding;
-
-    padding-top: $padding;
-    padding-bottom: $padding;
-
-    background-color: rgba(255, 255, 255, 0.5);
-    color: black;
-
-    @include transition(all 0.4s ease-in-out);
-
-    &:hover {
-      background-color: white;
-    }
-
-    a {
-      color: black;
-      text-decoration: none;
-    }
-  }
-
-  .location {
-    margin-top: $padding + $half-padding;
-    font-weight: 900;
-    font-size: 10pt;
-    letter-spacing: 2px;
-  }
+  // @include rotateY(20deg);
 }
