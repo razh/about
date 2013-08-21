@@ -18,6 +18,13 @@
       edges = [],
       adjacenyList = [];
 
+  var stage = {
+    x0: 0.0,
+    y0: 0.0,
+    x1: 0.0,
+    y1: 0.0
+  };
+
   var $canvas, canvas, context;
 
   var prevTime, currTime, running;
@@ -37,6 +44,14 @@
   Node.prototype.update = function( dt ) {
     this.x += this.vx * dt;
     this.y += this.vy * dt;
+
+    if ( stage.x0 > this.x || this.x > stage.x1 ) {
+      this.vx = -this.vx;
+    }
+
+    if ( stage.y0 > this.y || this.y > stage.y1 ) {
+      this.vy = -this.vy;
+    }
   };
 
   function Edge( src, dst ) {
@@ -54,6 +69,8 @@
     ctx.lineTo( x1, y1 );
   };
 
+  Edge.prototype.update = function( dt ) {};
+
   function init() {
     $canvas = $( '<canvas></canvas>' ),
     canvas  = $canvas[0],
@@ -61,12 +78,17 @@
 
     $( 'body' ).append( $canvas );
 
-    var width  = canvas.width  = 480,
-        height = canvas.height = 320;
+    var width  = stage.x1 = canvas.width  = 480,
+        height = stage.y1 = canvas.height = 320;
 
-    var i = nodeCount;
+    var i = nodeCount,
+        node;
+
     while( i-- ) {
-      nodes.push( new Node( Math.random() * width, Math.random() * height ) );
+      node = new Node( Math.random() * width, Math.random() * height );
+      node.vx = ( Math.random() > 0.5 ? 1 : -1 ) * Math.random() * 20 + 20;
+      node.vy = ( Math.random() > 0.5 ? 1 : -1 ) * Math.random() * 20 + 20;
+      nodes.push( node );
     }
 
     i = edgeCount;
@@ -90,12 +112,10 @@
     }
 
     adjacenyList.forEach(function( src, srcIndex ) {
-      src.forEach(function( dst, dstIndex ) {
+      src.forEach(function( dstIndex ) {
         edges.push( new Edge( nodes[ srcIndex ], nodes[ dstIndex ] ) );
       });
     });
-
-    console.log(edges)
 
     prevTime = Date.now();
     tick();
@@ -116,6 +136,9 @@
     if ( dt > 1e2 ) {
       dt = 1e2;
     }
+
+    // Convert from milliseconds to seconds.
+    dt *= 1e-3;
 
     nodes.forEach(function( node ) {
       node.update( dt );
