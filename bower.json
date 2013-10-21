@@ -5,9 +5,13 @@
     "**/.*",
     "node_modules",
     "bower_components",
+    "app/bower_components",
     "test",
     "tests"
   ],
+  "homepage": "https://github.com/razh/about",
+  "license": "MIT",
+  "private": true,
   "dependencies": {
     "jquery": "git://github.com/components/jquery.git#~2.0.3"
   }
