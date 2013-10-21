@@ -67,106 +67,81 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
-/* line 35, ../sass/screen.scss */
+/* line 33, ../sass/screen.scss */
 html,
 body {
   width: 100%;
   height: 100%;
 }
 
-/* line 40, ../sass/screen.scss */
+/* line 38, ../sass/screen.scss */
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
 }
 
-/* line 44, ../sass/screen.scss */
+/* line 43, ../sass/screen.scss */
 body {
   font-family: "proxima-nova", Georgia, serif;
   font-weight: 700;
   -webkit-font-smoothing: antialiased;
-  background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 100, color-stop(0%, #555555), color-stop(100%, #222222));
-  background: -webkit-radial-gradient(#555555, #222222);
-  background: -moz-radial-gradient(#555555, #222222);
-  background: -o-radial-gradient(#555555, #222222);
-  background: radial-gradient(#555555, #222222);
+  background-color: white;
+  color: black;
+  display: table;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* line 52, ../sass/screen.scss */
+/* line 58, ../sass/screen.scss */
 .container {
-  position: absolute;
-  width: 222px;
-  height: 360px;
-  top: 50%;
-  left: 50%;
-  margin-top: -180px;
-  margin-left: -111px;
+  display: table-cell;
   text-align: center;
-  border-radius: 4px;
-  box-shadow: 0 0 10px #222222;
-  color: rgba(255, 255, 255, 0.75);
-  background-color: rgba(230, 66, 66, 0.5);
-  -webkit-transition: all 0.4s ease-in-out;
-  -moz-transition: all 0.4s ease-in-out;
-  -o-transition: all 0.4s ease-in-out;
-  transition: all 0.4s ease-in-out;
+  vertical-align: middle;
+}
+/* line 64, ../sass/screen.scss */
+.container .text {
+  margin-bottom: 1rem;
+}
+/* line 67, ../sass/screen.scss */
+.container .text h1 {
+  font-weight: 100;
+  font-size: 32px;
+  letter-spacing: 0.1rem;
 }
 /* line 73, ../sass/screen.scss */
-.container:hover {
-  background-color: rgba(230, 66, 66, 0.9);
-  color: white;
-}
-/* line 78, ../sass/screen.scss */
-.container .text {
-  padding-top: 40px;
-  padding-right: 20px;
-  padding-left: 20px;
-}
-/* line 83, ../sass/screen.scss */
-.container .text h1 {
-  font-weight: 900;
-  font-size: 12pt;
-  letter-spacing: 3px;
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
-}
-/* line 90, ../sass/screen.scss */
 .container .text .divider {
-  padding-top: 10px;
-  letter-spacing: 4px;
+  margin-bottom: 1rem;
+  padding-top: 0.5rem;
+  letter-spacing: 0.2rem;
 }
-/* line 95, ../sass/screen.scss */
+/* line 79, ../sass/screen.scss */
 .container .text p {
-  font-weight: 400;
-  line-height: 1.25;
-  margin-top: 20px;
+  font-weight: 300;
 }
-/* line 102, ../sass/screen.scss */
+/* line 84, ../sass/screen.scss */
 .container .links {
-  width: 100%;
-  margin-top: 20px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  background-color: rgba(255, 255, 255, 0.5);
-  color: black;
-  -webkit-transition: all 0.4s ease-in-out;
-  -moz-transition: all 0.4s ease-in-out;
-  -o-transition: all 0.4s ease-in-out;
-  transition: all 0.4s ease-in-out;
+  margin-bottom: 1.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
-/* line 115, ../sass/screen.scss */
-.container .links:hover {
-  background-color: white;
-}
-/* line 119, ../sass/screen.scss */
+/* line 89, ../sass/screen.scss */
 .container .links a {
   color: black;
   text-decoration: none;
 }
-/* line 125, ../sass/screen.scss */
+/* line 93, ../sass/screen.scss */
+.container .links a:hover {
+  color: #888;
+}
+/* line 99, ../sass/screen.scss */
 .container .location {
-  margin-top: 30px;
-  font-weight: 900;
-  font-size: 10pt;
-  letter-spacing: 2px;
+  font-weight: 300;
+  font-size: 16px;
+  letter-spacing: 0.1rem;
 }

@@ -8,12 +8,10 @@
 // For radial gradients.
 @import "compass/css3/images";
 @import "compass/css3/transition";
+@import "compass/css3/transform";
 
-$radius: 4px;
-$padding: 20px;
+$padding: 1rem;
 $half-padding: 0.5 * $padding;
-
-$dark-gray: #222;
 
 @mixin keyframes($name) {
   @-webkit-keyframes #{$name} { @content; }
@@ -39,6 +37,7 @@ body {
 
 * {
   @include box-sizing(border-box);
+  @include transition(all 0.2s);
 }
 
 body {
@@ -46,86 +45,60 @@ body {
   font-weight: 700;
   -webkit-font-smoothing: antialiased;
 
-  @include background(radial-gradient(#555, $dark-gray));
+  background-color: white;
+  color: black;
+
+  display: table;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .container {
-  position: absolute;
-  width: 222px;
-  height: 360px;
-
-  top: 50%;
-  left: 50%;
-
-  margin-top: -180px;
-  margin-left: -111px;
+  display: table-cell;
 
   text-align: center;
-
-  border-radius: $radius;
-  box-shadow: 0 0 $half-padding $dark-gray;
-
-  color: rgba(255, 255, 255, 0.75);
-  background-color: rgba(230, 66, 66, 0.5);
-
-  @include transition(all 0.4s ease-in-out);
-
-  &:hover {
-    background-color: rgba(230, 66, 66, 0.9);
-    color: white;
-  }
+  vertical-align: middle;
 
   .text {
-    padding-top: 2 * $padding;
-    padding-right: $padding;
-    padding-left: $padding;
+    margin-bottom: $padding;
 
     h1 {
-      font-weight: 900;
-      font-size: 12pt;
-      letter-spacing: 3px;
-      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+      font-weight: 100;
+      font-size: 32px;
+      letter-spacing: 0.1rem;
     }
 
     .divider {
+      margin-bottom: $padding;
       padding-top: $half-padding;
-      letter-spacing: 4px;
+      letter-spacing: 0.2rem;
     }
 
     p {
-      font-weight: 400;
-      line-height: 1.25;
-      margin-top: $padding;
+      font-weight: 300;
     }
   }
 
   .links {
-    width: 100%;
-
-    margin-top: $padding;
-
+    margin-bottom: $padding + $half-padding;
     padding-top: $padding;
     padding-bottom: $padding;
-
-    background-color: rgba(255, 255, 255, 0.5);
-    color: black;
-
-    @include transition(all 0.4s ease-in-out);
-
-    &:hover {
-      background-color: white;
-    }
 
     a {
       color: black;
       text-decoration: none;
+
+      &:hover {
+        color: #888;
+      }
     }
   }
 
   .location {
-    margin-top: $padding + $half-padding;
-    font-weight: 900;
-    font-size: 10pt;
-    letter-spacing: 2px;
+    font-weight: 300;
+    font-size: 16px;
+    letter-spacing: 0.1rem;
   }
 }
