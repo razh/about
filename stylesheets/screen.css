@@ -89,6 +89,7 @@ body {
 body {
   font-family: "proxima-nova", Georgia, serif;
   font-weight: 700;
+  font-size: 24px;
   -webkit-font-smoothing: antialiased;
   background-color: white;
   color: black;
@@ -98,50 +99,51 @@ body {
   justify-content: center;
 }
 
-/* line 58, ../sass/screen.scss */
+/* line 59, ../sass/screen.scss */
 .container {
   display: table-cell;
   text-align: center;
   vertical-align: middle;
 }
-/* line 64, ../sass/screen.scss */
+/* line 65, ../sass/screen.scss */
 .container .text {
   margin-bottom: 1rem;
 }
-/* line 67, ../sass/screen.scss */
+/* line 68, ../sass/screen.scss */
 .container .text h1 {
   font-weight: 100;
-  font-size: 32px;
+  font-size: 48px;
   letter-spacing: 0.1rem;
+  text-transform: uppercase;
 }
-/* line 73, ../sass/screen.scss */
+/* line 75, ../sass/screen.scss */
 .container .text .divider {
   margin-bottom: 1rem;
   padding-top: 0.5rem;
   letter-spacing: 0.2rem;
 }
-/* line 79, ../sass/screen.scss */
+/* line 81, ../sass/screen.scss */
 .container .text p {
   font-weight: 300;
 }
-/* line 84, ../sass/screen.scss */
+/* line 86, ../sass/screen.scss */
 .container .links {
   margin-bottom: 1.5rem;
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
-/* line 89, ../sass/screen.scss */
+/* line 91, ../sass/screen.scss */
 .container .links a {
   color: black;
   text-decoration: none;
 }
-/* line 93, ../sass/screen.scss */
+/* line 95, ../sass/screen.scss */
 .container .links a:hover {
   color: #888;
 }
-/* line 99, ../sass/screen.scss */
+/* line 101, ../sass/screen.scss */
 .container .location {
   font-weight: 300;
-  font-size: 16px;
   letter-spacing: 0.1rem;
+  text-transform: uppercase;
 }

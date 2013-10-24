@@ -43,6 +43,7 @@ body {
 body {
   font-family: "proxima-nova", Georgia, serif;
   font-weight: 700;
+  font-size: 24px;
   -webkit-font-smoothing: antialiased;
 
   background-color: white;
@@ -66,8 +67,9 @@ body {
 
     h1 {
       font-weight: 100;
-      font-size: 32px;
+      font-size: 48px;
       letter-spacing: 0.1rem;
+      text-transform: uppercase;
     }
 
     .divider {
@@ -98,7 +100,7 @@ body {
 
   .location {
     font-weight: 300;
-    font-size: 16px;
     letter-spacing: 0.1rem;
+    text-transform: uppercase;
   }
 }
